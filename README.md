@@ -70,6 +70,25 @@ The model uses:
 - **Estimators**: 300 trees
 - **Train/Test Split**: 80/20
 - **Random State**: 500
+- **Test Set R² Score**: 0.774 (77.4% variance explained)
+
+### Testing Results
+
+The model achieves an R² score of **0.774** on the test set, indicating that approximately 77.4% of the variance in car prices can be explained by the model's features.
+
+**Example Prediction:**
+- **Input**: 2022 Subaru WRX, Sedan, Petrol, Automatic, 4x4, 4-5 doors, Left wheel, Orange, 14,000 km mileage, 2.4L engine, 4 cylinders, 7 airbags, no leather interior, turbo
+- **Predicted Price**: $42,940.60
+- **Model Confidence**: The prediction is based on 300 decision trees voting on the most likely price
+
+### Interactive Testing
+
+After training, the script prompts for user input to test predictions on custom car configurations. You'll be asked to provide:
+- Manufacturer, Model, Category
+- Fuel type, Gear box type, Drive wheels
+- Doors, Wheel, Color
+- Numeric features: Levy, Production year, Engine volume, Mileage, Cylinders, Airbags
+- Binary features: Leather interior (1/0), Turbo (1/0)
 
 ## Data Preprocessing
 

@@ -1,4 +1,5 @@
 import pandas as pd
+
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
@@ -62,14 +63,17 @@ numeric_cols = [
 # Preprocessing
 preprocess = ColumnTransformer(
     # One Hot Encoder for Categorical Cols
+    # Passtrhough Numeric Cols
     transformers=[
         ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_cols),
         ("num", "passthrough", numeric_cols)
     ]
 )
 
+# Preprocess Training Data
 preprocess.fit(x_train)
 
+# Transform Train and Test
 x_train_final = preprocess.transform(x_train) 
 x_test_final = preprocess.transform(x_test)
 
@@ -86,3 +90,33 @@ model.fit(x_train_final, y_train)
 y_pred = model.predict(x_test_final)
 
 print("R2 Score:", r2_score(y_test, y_pred))
+
+
+# Example user input
+user_data = {
+    "Manufacturer": input("Manufacturer: "),
+    "Model": input("Model: "),
+    "Category": input("Category: "),
+    "Fuel type": input("Fuel type: "),
+    "Gear box type": input("Gear box type: "),
+    "Drive wheels": input("Drive wheels: "),
+    "Doors": input("Doors: "),
+    "Wheel": input("Wheel: "),
+    "Color": input("Color: "),
+    "Levy": int(input("Levy: ")),
+    "Prod. year": int(input("Prod. year: ")),
+    "Engine volume": float(input("Engine volume: ")),
+    "Mileage": int(input("Mileage: ")),
+    "Cylinders": int(input("Cylinders: ")),
+    "Airbags": int(input("Airbags: ")),
+    "Leather interior": int(input("Leather interior (1/0): ")),
+    "Turbo": int(input("Turbo (1/0): "))
+}
+
+df = pd.DataFrame([user_data])
+
+# Preprocess + predict
+df_transformed = preprocess.transform(df)
+pred = model.predict(df_transformed)
+
+print("Predicted price:", pred[0])
